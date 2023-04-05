@@ -40,6 +40,7 @@ class FreeSwitchEngine {
         this.password = password;
     }
     logout(params) {
+        this.removeQueue(params);
         this.setHost(params.serverIp);
         console.log(`[${this.className}][logout]: Freeswitch logout, params: `, JSON.stringify(params));
         this.api([`callcenter_config agent del ${params.uuid}`]);
@@ -56,13 +57,19 @@ class FreeSwitchEngine {
     removeQueue(params) {
         this.setHost(params.serverIp);
         console.log(`[${this.className}][removeQueue]: Freeswitch remove queue, params: `, JSON.stringify(params));
-        this.api(params.queueIds.map((queueId) => `callcenter_config tier del ${queueId} ${params.domainId}`));
+        this.api(params.queueIds.map((queueId) => `callcenter_config tier del ${queueId} ${params.uuid}`));
     }
     registerQueue(params) {
-        this.removeQueue(params);
-        this.setHost(params.serverIp);
-        console.log(`[${this.className}][registerQueue]: Freeswitch register queue, params: `, JSON.stringify(params));
-        this.api(params.queueIds.map((queueId) => `callcenter_config tier add ${queueId} ${params.uuid} 1 1`));
+        this.removeQueue({
+            serverIp: params.serverIp,
+            uuid: params.uuid,
+            queueIds: params.existingQueueIds,
+        });
+        setTimeout(() => {
+            this.setHost(params.serverIp);
+            console.log(`[${this.className}][registerQueue]: Freeswitch register queue, params: `, JSON.stringify(params));
+            this.api(params.queueIds.map((queueId) => `callcenter_config tier add ${queueId} ${params.uuid} 1 1`));
+        }, 500);
     }
     setStatus(params) {
         this.setHost(params.serverIp);

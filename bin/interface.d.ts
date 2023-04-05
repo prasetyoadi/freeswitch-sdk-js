@@ -11,7 +11,9 @@ export declare enum EnumHold {
     HOLD = "hold",
     UNHOLD = "unhold"
 }
-export type LogoutParamsType = BasicParamsType;
+export type LogoutParamsType = BasicParamsType & {
+    queueIds: Array<string>;
+};
 export type LoginParamsType = BasicParamsType & {
     extension: string;
     sipUrl: string;
@@ -24,9 +26,11 @@ export type SetStateParamsType = BasicParamsType & {
 };
 export type RemoveQueueParamsType = BasicParamsType & {
     queueIds: Array<string>;
-    domainId: string;
 };
-export type RegisterQueueParamsType = RemoveQueueParamsType;
+export type RegisterQueueParamsType = BasicParamsType & {
+    queueIds: Array<string>;
+    existingQueueIds: Array<string>;
+};
 export type RequestSentimentAnalysisParamsType = Pick<BasicParamsType, 'serverIp'> & {
     uuid: string;
     recordingId: string;

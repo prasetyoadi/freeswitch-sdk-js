@@ -1,6 +1,6 @@
 {
   "name": "freeswitch-sdk",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Freeswitch event socket library",
   "keywords": [
     "freeswitch",
