@@ -2,6 +2,7 @@ import { AgentListByQueueIdParamsType, AgentTransferParamsType, BargeParamsType,
 export declare class FreeSwitchEngine {
     private readonly defaultPortNumber;
     private readonly defaultPassword;
+    private readonly className;
     private host;
     private port;
     private password;

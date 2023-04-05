@@ -31,11 +31,10 @@ export type SetStateParamsType = BasicParamsType & {
 
 export type RemoveQueueParamsType = BasicParamsType & {
   queueIds: Array<string>;
+  domainId: string;
 };
 
-export type RegisterQueueParamsType = BasicParamsType & {
-  queueIds: Array<string>;
-};
+export type RegisterQueueParamsType = RemoveQueueParamsType;
 
 export type RequestSentimentAnalysisParamsType = Pick<
   BasicParamsType,

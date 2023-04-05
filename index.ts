@@ -29,14 +29,15 @@ const esl = require('modesl');
 export class FreeSwitchEngine {
   private readonly defaultPortNumber: number = 8021;
   private readonly defaultPassword: string = 'ClueCon';
+  private readonly className = FreeSwitchEngine.name;
 
   private host: string = '';
   private port: number = this.defaultPortNumber;
   private password: string = this.defaultPassword;
 
   private logCommand(cmd: string, res?: { body: string }): void {
-    if (res) console.log(`Command "api ${cmd}" | Result "${res.body.trim()}"`);
-    else console.log(`Command "api ${cmd}"`);
+    if (res) console.log(`[${this.className}] Command "api ${cmd}" | Result "${res.body.trim()}"`);
+    else console.log(`[${this.className}] Command "api ${cmd}"`);
   }
 
   private api(commands: Array<string>): void {
@@ -68,7 +69,7 @@ export class FreeSwitchEngine {
   logout(params: LogoutParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[logout]: Freeswitch logout, params: `,
+      `[${this.className}][logout]: Freeswitch logout, params: `,
       JSON.stringify(params),
     );
     this.api([`callcenter_config agent del ${params.uuid}`]);
@@ -76,7 +77,10 @@ export class FreeSwitchEngine {
 
   login(params: LoginParamsType): void {
     this.setHost(params.serverIp);
-    console.log(`[login]: Freeswitch login, params: `, JSON.stringify(params));
+    console.log(
+      `[${this.className}][login]: Freeswitch login, params: `,
+      JSON.stringify(params),
+    );
     this.api([
       `callcenter_config agent add ${params.uuid} callback`,
       `callcenter_config agent set contact ${params.uuid} user/${params.extension}@${params.sipUrl}`,
@@ -87,12 +91,12 @@ export class FreeSwitchEngine {
   removeQueue(params: RemoveQueueParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[removeQueue]: Freeswitch remove queue, params: `,
+      `[${this.className}][removeQueue]: Freeswitch remove queue, params: `,
       JSON.stringify(params),
     );
     this.api(
       params.queueIds.map(
-        (queueId) => `callcenter_config tier del ${queueId}${params.uuid}`,
+        (queueId) => `callcenter_config tier del ${queueId} ${params.domainId}`,
       ),
     );
   }
@@ -101,7 +105,7 @@ export class FreeSwitchEngine {
     this.removeQueue(params);
     this.setHost(params.serverIp);
     console.log(
-      `[registerQueue]: Freeswitch register queue, params: `,
+      `[${this.className}][registerQueue]: Freeswitch register queue, params: `,
       JSON.stringify(params),
     );
     this.api(
@@ -114,7 +118,7 @@ export class FreeSwitchEngine {
   setStatus(params: SetStatusParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[setStatus]: Freeswitch set status to ${params.status}, params: `,
+      `[${this.className}][setStatus]: Freeswitch set status to ${params.status}, params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -125,7 +129,7 @@ export class FreeSwitchEngine {
   setState(params: SetStateParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[setState]: Freeswitch set state to ${params.state}, params: `,
+      `[${this.className}][setState]: Freeswitch set state to ${params.state}, params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -137,7 +141,7 @@ export class FreeSwitchEngine {
     const { recordingId, serverIp, uuid } = params;
     this.setHost(serverIp);
     console.log(
-      `[requestSentimentAnalysis]: Freeswitch sentiment analysis for call, params: `,
+      `[${this.className}][requestSentimentAnalysis]: Freeswitch sentiment analysis for call, params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -148,7 +152,7 @@ export class FreeSwitchEngine {
   stopSentimentAnalysis(params: StopSentimentAnalysisParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[stopSentimentAnalysis]: Stop sentiment analysis. params: `,
+      `[${this.className}][stopSentimentAnalysis]: Stop sentiment analysis. params: `,
       JSON.stringify(params),
     );
     this.api([`uuid_kill ${params.uuid}`]);
@@ -165,7 +169,7 @@ export class FreeSwitchEngine {
     } = params;
     this.setHost(serverIp);
     console.log(
-      `[bridgeCall]: Freeswich bridge. params: `,
+      `[${this.className}][bridgeCall]: Freeswich bridge. params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -176,7 +180,7 @@ export class FreeSwitchEngine {
   createDirectory(params: CreateDirectoryParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[createDirectory]: Freeswitch Create Switch directory. params: `,
+      `[${this.className}][createDirectory]: Freeswitch Create Switch directory. params: `,
       JSON.stringify(params),
     );
     this.api([`lua mkdir.lua ${params.directory}`]);
@@ -185,7 +189,7 @@ export class FreeSwitchEngine {
   records(params: RecordsParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[records]: Freeswitch ${params.action} recording. params: `,
+      `[${this.className}][records]: Freeswitch ${params.action} recording. params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -196,7 +200,7 @@ export class FreeSwitchEngine {
   hangup(params: HangupParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[hangup]: Freeswitch kill uuid with params: `,
+      `[${this.className}][hangup]: Freeswitch kill uuid with params: `,
       JSON.stringify(params),
     );
     this.api([`uuid_kill ${params.uuid}`]);
@@ -205,7 +209,7 @@ export class FreeSwitchEngine {
   hold(params: HoldParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[hold]: Freeswitch ${params.action} uuid with params: `,
+      `[${this.className}][hold]: Freeswitch ${params.action} uuid with params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -216,7 +220,7 @@ export class FreeSwitchEngine {
   displace(params: DisplaceParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[displace]: Freeswitch displace. params: `,
+      `[${this.className}][displace]: Freeswitch displace. params: `,
       JSON.stringify(params),
     );
     const isHold = params.action === EnumHold.HOLD;
@@ -230,7 +234,7 @@ export class FreeSwitchEngine {
   blindTransfer(params: BlindTransferParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[blindTransfer]: Freeswich blind transfer params: `,
+      `[${this.className}][blindTransfer]: Freeswich blind transfer params: `,
       JSON.stringify(params),
     );
     const isIncoming = params.direction === EnumDirection.IN;
@@ -244,7 +248,7 @@ export class FreeSwitchEngine {
   barge(params: BargeParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[barge]: Freeswich barge call. params: `,
+      `[${this.className}][barge]: Freeswich barge call. params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -255,7 +259,7 @@ export class FreeSwitchEngine {
   monitor(params: MonitorParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[monitor]: Freeswich monitor call. params: `,
+      `[${this.className}][monitor]: Freeswich monitor call. params: `,
       JSON.stringify(params),
     );
     this.api([
@@ -265,7 +269,9 @@ export class FreeSwitchEngine {
 
   coach(params: CoachParamsType): void {
     this.setHost(params.serverIp);
-    console.log(`[coach]: Freeswich coach call uuid: ${params.uuid}`);
+    console.log(
+      `[${this.className}][coach]: Freeswich coach call uuid: ${params.uuid}`,
+    );
     const isIncoming = params.direction === EnumDirection.IN;
     const dtmfQueue = isIncoming ? 'w2@500' : 'w1@500';
     this.api([
@@ -276,7 +282,7 @@ export class FreeSwitchEngine {
   agentListByQueues(params: AgentListByQueueIdParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[agentListByQueues]: Freeswich agent list by queue. params: `,
+      `[${this.className}][agentListByQueues]: Freeswich agent list by queue. params: `,
       JSON.stringify(params),
     );
     this.api([`callcenter_config queue list agents ${params.uuid}`]);
@@ -285,7 +291,7 @@ export class FreeSwitchEngine {
   callQueuesByQueueId(params: CallQueuesByQueueIdParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[callQueuesByQueueId]: Freeswich get call queue. params: `,
+      `[${this.className}][callQueuesByQueueId]: Freeswich get call queue. params: `,
       JSON.stringify(params),
     );
     this.api([`callcenter_config queue list members ${params.uuid}`]);
@@ -294,7 +300,7 @@ export class FreeSwitchEngine {
   agentTransfer(params: AgentTransferParamsType): void {
     this.setHost(params.serverIp);
     console.log(
-      `[agentTransfer]: Freeswich agent call transfer FS record. params: `,
+      `[${this.className}][agentTransfer]: Freeswich agent call transfer FS record. params: `,
       JSON.stringify(params),
     );
     const isIncoming = params.direction === EnumDirection.IN;
