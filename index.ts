@@ -26,7 +26,7 @@ import {
 
 const esl = require('modesl');
 
-export default class FreeSwitchEngine {
+export class FreeSwitchEngine {
   private readonly defaultPortNumber: number = 8021;
   private readonly defaultPassword: string = 'ClueCon';
 

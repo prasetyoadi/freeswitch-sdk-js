@@ -1,5 +1,5 @@
 import { AgentListByQueueIdParamsType, AgentTransferParamsType, BargeParamsType, BlindTransferParamsType, BridgeCallParamsType, CallQueuesByQueueIdParamsType, CoachParamsType, CreateDirectoryParamsType, DisplaceParamsType, HangupParamsType, HoldParamsType, LoginParamsType, LogoutParamsType, MonitorParamsType, RecordsParamsType, RegisterQueueParamsType, RemoveQueueParamsType, RequestSentimentAnalysisParamsType, SetStateParamsType, SetStatusParamsType, StopSentimentAnalysisParamsType } from './interface';
-export default class FreeSwitchEngine {
+export declare class FreeSwitchEngine {
     private readonly defaultPortNumber;
     private readonly defaultPassword;
     private host;
