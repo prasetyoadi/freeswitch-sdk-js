@@ -10,13 +10,13 @@ This is library for freeswitch event socket using typescript.
 ## Install
 
 ```
-    yarn install
+yarn install
 ```
 
 ## Build
 
 ```
-    yarn build
+yarn build
 ```
 
 ## How to use

@@ -14,7 +14,9 @@ export enum EnumHold {
   UNHOLD = 'unhold',
 }
 
-export type LogoutParamsType = BasicParamsType;
+export type LogoutParamsType = BasicParamsType & {
+  queueIds: Array<string>;
+};
 
 export type LoginParamsType = BasicParamsType & {
   extension: string;
@@ -35,6 +37,7 @@ export type RemoveQueueParamsType = BasicParamsType & {
 
 export type RegisterQueueParamsType = BasicParamsType & {
   queueIds: Array<string>;
+  existingQueueIds: Array<string>;
 };
 
 export type RequestSentimentAnalysisParamsType = Pick<
@@ -114,4 +117,52 @@ export type AgentTransferParamsType = Pick<BasicParamsType, 'serverIp'> & {
   direction: string;
   firstAgent: string;
   prevAgent: string;
+};
+
+export type AgentListByQueueIdFsResponseType = {
+  readonly busyDelayTime?: string;
+  readonly callsAnswered?: string;
+  readonly contact?: string;
+  readonly externalCallsCount?: string;
+  readonly instanceId?: string;
+  readonly lastBridgeEnd?: string;
+  readonly lastBridgeStart?: string;
+  readonly lastOfferedCall?: string;
+  readonly lastStatusChange?: string;
+  readonly maxNoAnswer?: string;
+  readonly name?: string;
+  readonly noAnswerCount?: string;
+  readonly noAnswerDelayTime?: string;
+  readonly readyTime?: string;
+  readonly rejectDelayTime?: string;
+  readonly state?: string;
+  readonly status?: string;
+  readonly talkTime?: string;
+  readonly type?: string;
+  readonly uuid?: string;
+  readonly wrapUpTime?: string;
+};
+
+export type AgentListByQueueIdResponseType = {
+  readonly name: string;
+  readonly instanceId: string;
+  readonly uuid: string;
+  readonly type: string;
+  readonly contact: string;
+  readonly status: string;
+  readonly state: string;
+  readonly maxNoAnswer: number;
+  readonly wrapUpTime: number;
+  readonly rejectDelayTime: number;
+  readonly busyDelayTime: number;
+  readonly noAnswerDelayTime: number;
+  readonly lastBridgeStart: number;
+  readonly lastBridgeEnd: number;
+  readonly lastOfferedCall: number;
+  readonly lastStatusChange: number;
+  readonly noAnswerCount: number;
+  readonly callsAnswered: number;
+  readonly talkTime: number;
+  readonly readyTime: number;
+  readonly externalCallsCount: number;
 };

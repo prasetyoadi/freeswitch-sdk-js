@@ -8,13 +8,11 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "./bin",
+    "baseUrl": "./",
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "emitDeclarationOnly": true,
-    "sourceMap": true,
-    "stripInternal": true,
-    "isolatedModules": true
+    "sourceMap": false
   }
 }

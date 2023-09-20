@@ -1,0 +1,36 @@
+import FreeswichHelper from './helper';
+import type { AgentListByQueueIdParamsType, AgentListByQueueIdResponseType, AgentTransferParamsType, BargeParamsType, BlindTransferParamsType, BridgeCallParamsType, CallQueuesByQueueIdParamsType, CoachParamsType, CreateDirectoryParamsType, DisplaceParamsType, HangupParamsType, HoldParamsType, LoginParamsType, LogoutParamsType, MonitorParamsType, RecordsParamsType, RegisterQueueParamsType, RemoveQueueParamsType, RequestSentimentAnalysisParamsType, SetStateParamsType, SetStatusParamsType, StopSentimentAnalysisParamsType } from './interface';
+export declare class FreeSwitchEngine extends FreeswichHelper {
+    private readonly defaultPortNumber;
+    private readonly defaultPassword;
+    private readonly className;
+    private host;
+    private port;
+    private password;
+    private apis;
+    private api;
+    setHost(host: string): void;
+    setPort(port: number): void;
+    setPassword(password: string): void;
+    logout(params: LogoutParamsType): Promise<void>;
+    login(params: LoginParamsType): Promise<void>;
+    removeQueue(params: RemoveQueueParamsType): Promise<void>;
+    registerQueue(params: RegisterQueueParamsType): Promise<void>;
+    setStatus(params: SetStatusParamsType): Promise<void>;
+    setState(params: SetStateParamsType): Promise<void>;
+    requestSentimentAnalysis(params: RequestSentimentAnalysisParamsType): Promise<void>;
+    stopSentimentAnalysis(params: StopSentimentAnalysisParamsType): Promise<void>;
+    bridgeCall(params: BridgeCallParamsType): Promise<void>;
+    createDirectory(params: CreateDirectoryParamsType): Promise<void>;
+    records(params: RecordsParamsType): Promise<void>;
+    hangup(params: HangupParamsType): Promise<void>;
+    hold(params: HoldParamsType): Promise<void>;
+    displace(params: DisplaceParamsType): Promise<void>;
+    blindTransfer(params: BlindTransferParamsType): Promise<void>;
+    barge(params: BargeParamsType): Promise<void>;
+    monitor(params: MonitorParamsType): Promise<void>;
+    coach(params: CoachParamsType): Promise<void>;
+    agentListByQueues(params: AgentListByQueueIdParamsType): Promise<Array<AgentListByQueueIdResponseType>>;
+    callQueuesByQueueId(params: CallQueuesByQueueIdParamsType): Promise<void>;
+    agentTransfer(params: AgentTransferParamsType): Promise<void>;
+}

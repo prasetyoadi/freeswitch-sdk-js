@@ -13,7 +13,7 @@
   "license": "MIT",
   "author": {
     "name": "Adi Prasetyo",
-    "email": "prasetyo.adi87@gmail.com",
+    "email": prasetyo.adi87@gmail.com",
     "url": "https://github.com/prasetyoadi"
   },
   "scripts": {
@@ -21,10 +21,12 @@
     "format": "prettier --write \"*.ts\""
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "modesl": "^1.2.1",
     "net": "^1.0.2"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.194",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "eslint": "^8.0.1",
